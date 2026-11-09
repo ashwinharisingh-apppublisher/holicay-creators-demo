@@ -183,6 +183,7 @@ main.page{flex:1;min-width:0;padding:32px max(40px,env(safe-area-inset-right,0px
 .kind input{width:16px;height:16px;margin:0;accent-color:var(--navy)}
 .chk{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-top:1px solid var(--line2);cursor:pointer}
 .chk input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--navy);flex:none}
+.lockpill{display:inline-flex;align-items:center;gap:4px;padding:0 6px;border-radius:6px;background:var(--surf);color:var(--ink3);font-size:12px;line-height:18px;font-weight:600}
 .divider{padding-top:16px;border-top:1px solid var(--line2)}
 
 /* banners */
@@ -214,8 +215,10 @@ main.page{flex:1;min-width:0;padding:32px max(40px,env(safe-area-inset-right,0px
 .tbl .muted{color:var(--ink2)}
 .tbl .strong{font-weight:600;color:var(--navy)}
 .tbl tbody tr.clickable{cursor:pointer}
+.tbl.trips th,.tbl.trips td{padding-left:8px;padding-right:8px}.tbl.trips th{white-space:normal;vertical-align:bottom}.tbl.trips th:first-child,.tbl.trips td:first-child{padding-left:20px}.tbl.trips th:last-child,.tbl.trips td:last-child{padding-right:20px}
 @media (max-width:640px){.tbl.stack-sm{min-width:0!important}.tbl.stack-sm thead{display:none}.tbl.stack-sm tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;padding:16px 20px;border-bottom:1px solid var(--line2)}.tbl.stack-sm tbody tr:last-child{border-bottom:0}.tbl.stack-sm td{padding:0!important;border:0!important;text-align:left!important;white-space:normal!important}.tbl.stack-sm td:first-child{grid-column:1/-1}.tbl.stack-sm td[data-label]::before{content:attr(data-label);display:block;margin-bottom:2px;font-size:12px;line-height:16px;font-weight:500;color:var(--ink3)}.tbl.stack-sm td.empty-cell{grid-column:1/-1;text-align:center!important}}
 .tbl tbody tr.clickable:hover td{background:var(--warm)}
+.tbl .struck,.struck{text-decoration:line-through;color:var(--ink3);font-weight:500}
 .tlink{font-weight:600;color:var(--navy);text-decoration:none}
 .tlink:hover{text-decoration:underline;color:var(--navy)}
 .tfoot{padding:14px 20px;border-top:1px solid var(--line2);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
@@ -224,11 +227,38 @@ main.page{flex:1;min-width:0;padding:32px max(40px,env(safe-area-inset-right,0px
 .empty-ic.grey{background:var(--surf);color:var(--ink2)}
 .empty p{margin:0;max-width:440px;font-size:14px;line-height:20px;color:var(--ink2)}
 
+/* calendar */
+.datebtn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:var(--white);color:var(--navy);font-size:14px;font-weight:600;cursor:pointer}
+.datebtn:hover,.datebtn.open{border-color:var(--navy)}
+.cal-anchor{position:relative;height:0}
+.cal-pop{position:absolute;z-index:30;top:4px;left:0;width:660px;max-width:100%;padding:20px;background:var(--white);border:1px solid var(--line2);border-radius:12px;box-shadow:0 16px 40px rgba(16,24,40,.16);display:flex;flex-direction:column;gap:16px}
+.cal-months{display:flex;gap:28px}
+.cal-month{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.cal-title{display:flex;align-items:center;justify-content:space-between;height:36px;font-size:16px;font-weight:600;color:var(--navy)}
+.cal-nav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line2);border-radius:8px;background:var(--white);color:var(--ink2);cursor:pointer}
+.cal-nav:hover{border-color:var(--navy);color:var(--navy)}
+.cal-nav[disabled]{opacity:.35;cursor:not-allowed}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px}
+.cal-wd{font-size:12px;line-height:28px;text-align:center;color:var(--ink3);font-weight:500}
+.cal-d{height:40px;padding:0;border:0;background:none;font-size:14px;color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.cal-d span{display:flex;width:36px;height:36px;margin:2px auto;align-items:center;justify-content:center;border-radius:999px}
+.cal-d:hover span{background:var(--surf)}
+.cal-d.in{background:var(--blush)}
+.cal-d.rs{background:linear-gradient(90deg,transparent 50%,var(--blush) 50%)}
+.cal-d.re{background:linear-gradient(90deg,var(--blush) 50%,transparent 50%)}
+.cal-d.sel span,.cal-d.sel:hover span{background:var(--navy);color:var(--white);font-weight:600}
+.cal-d.today span{box-shadow:inset 0 0 0 1.5px var(--coral)}
+.cal-d.dis{color:#c4c7cc;cursor:not-allowed}
+.cal-d.dis:hover span{background:none}
+.cal-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:1px solid var(--line2)}
+.cal-nav.m-only{visibility:hidden}
+@media (max-width:760px){.cal-month:first-child{display:none}.cal-nav.m-only{visibility:visible}.cal-pop{padding:16px}.cal-d{height:44px}.cal-d span{width:40px;height:40px}}
 /* tooltip */
 .tipwrap{position:relative;display:flex;align-items:center;gap:4px;height:20px}
 .tipbtn{width:24px;height:24px;padding:0;display:flex;align-items:center;justify-content:center;border:0;border-radius:999px;background:transparent;color:var(--ink3);cursor:pointer}
 .tipbtn:hover{background:var(--surf);color:var(--navy)}
 .tipbox{display:none;position:absolute;z-index:20;top:calc(100% + 10px);left:-8px;width:280px;max-width:calc(100vw - 48px);padding:14px;border-radius:10px;background:var(--navy);color:var(--white);box-shadow:0 12px 24px rgba(16,24,40,.18);font-size:14px;line-height:20px}
+.tipbox.short::before{left:64px}
 .tipbox::before{content:"";position:absolute;top:-6px;left:96px;width:12px;height:12px;background:var(--navy);transform:rotate(45deg)}
 .tipwrap:hover .tipbox,.tipwrap:focus-within .tipbox,.tipbox.open{display:block}
 .tipbox .tm{display:block;font-size:12px;line-height:16px;color:var(--meta)}
@@ -261,7 +291,7 @@ main.page{flex:1;min-width:0;padding:32px max(40px,env(safe-area-inset-right,0px
 .ring{width:48px;height:48px;border-radius:999px;background:var(--blush);color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none}
 .ring.bad{background:var(--bad-bg);color:var(--bad)}
 .ring.ok{background:var(--ok-bg);color:var(--ok)}
-.codebox{display:flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--surf);font-size:16px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.codebox{cursor:not-allowed;display:flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--surf);font-size:16px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
 
 /* skeleton */
 .sk{display:block;border-radius:6px;background:linear-gradient(90deg,#eceef1 25%,#f6f7f9 50%,#eceef1 75%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite}
@@ -283,6 +313,21 @@ main.page{flex:1;min-width:0;padding:32px max(40px,env(safe-area-inset-right,0px
 .demo-note{width:100%;max-width:440px;padding:14px 16px;border:1px dashed var(--line);border-radius:10px;font-size:13px;line-height:20px;color:var(--ink2);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .demo-note code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;padding:1px 5px;border-radius:4px;background:var(--white);color:var(--navy)}
 
+/* login split */
+.auth-split{flex:1;display:flex;flex-wrap:wrap-reverse;background:var(--beige)}
+.auth-split>.auth{flex:1 1 480px}
+.auth-split>aside{padding-left:max(56px,env(safe-area-inset-left,0px))!important}
+@media (min-width:1056px){.auth-split .auth-brand{display:none}}
+.phone-only{display:none}
+@media (max-width:640px){
+  .auth-split{flex-direction:column;flex-wrap:nowrap}
+  .auth-split>aside{display:none!important}
+  .phone-only{display:block}
+  .auth-split>.phone-only>[role="region"]{padding-left:max(20px,env(safe-area-inset-left,0px))!important;padding-right:max(20px,env(safe-area-inset-right,0px))!important}
+  .auth-split>.auth{flex:none;padding-block:48px 40px;justify-content:flex-start}
+  .auth-split .auth-brand{display:none}
+  .auth-split .auth-card{padding:28px 20px}
+}
 /* prototype panel */
 .proto{position:fixed;z-index:80;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .proto-btn{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border:0;border-radius:999px;background:var(--ink);color:var(--white);font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 8px 20px rgba(16,24,40,.24)}
@@ -321,6 +366,7 @@ function fmtRange(a, b) {
   if (x.m !== y.m) return x.d + ' ' + MON[x.m - 1] + ' to ' + y.d + ' ' + MON[y.m - 1] + ' ' + y.y;
   return x.d + ' to ' + y.d + ' ' + MON[y.m - 1] + ' ' + y.y;
 }
+function payDay(iso) { var p = parts(iso); var m = p.m + 1, y = p.y; if (m > 12) { m = 1; y++; } var d = new Date(Date.UTC(y, m, 0)).getUTCDate(); return y + '-' + String(m).padStart(2, '0') + '-' + String(d).padStart(2, '0'); }
 function addMonth(iso) { var p = parts(iso); var m = p.m + 1, y = p.y; if (m > 12) { m = 1; y++; } return y + '-' + String(m).padStart(2, '0') + '-' + String(p.d).padStart(2, '0'); }
 function addDays(iso, n) { var d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 function rate(v) { return v < 385 ? 0 : v < 2000 ? 4 : v < 4000 ? 5 : v < 6000 ? 6 : v < 8000 ? 7 : 8; }
@@ -356,42 +402,47 @@ var I = {
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   cloud: '<path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8H7z"/><path d="M12 11v3M12 16.5h.01"/>',
   dotc: '<circle cx="12" cy="12" r="4"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/>',
+  tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   sliders: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'
 };
 var SPIN = '<svg class="spin" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.35)" stroke-width="3"/><path d="M21 12a9 9 0 0 0-9-9" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/></svg>';
 
 /* ---------- data ---------- */
 var BASE_TRIPS = [
-  { id: 'kyoto', title: '4 days in Kyoto', trav: 2, places: '', source: 'page', req: '2026-11-06', booked: null, start: '2027-01-12', end: '2027-01-15', value: 1600 },
-  { id: 'seoul', title: '7 days in Seoul', trav: 4, places: '', source: 'code', req: '2026-11-05', booked: null, start: '2027-02-20', end: '2027-02-26', value: 2400 },
-  { id: 'penang', title: '3 days in Penang', trav: 1, places: '', source: 'page', req: '2026-11-04', booked: null, start: '2026-12-08', end: '2026-12-10', value: 350 },
-  { id: 'bangkok', title: '5 days in Bangkok', trav: 2, places: '', source: 'page', req: '2026-10-29', booked: '2026-11-03', start: '2026-12-14', end: '2026-12-18', value: 1500 },
-  { id: 'hokkaido', title: '5 days in Hokkaido', trav: 2, places: 'Sapporo, Niseko', source: 'page', req: '2026-11-02', booked: null, start: '2027-01-15', end: '2027-01-19', value: 3200 },
-  { id: 'hong-kong', title: '4 days in Hong Kong', trav: 3, places: '', source: 'code', req: '2026-10-30', booked: null, start: '2026-12-12', end: '2026-12-15', value: 1800 },
-  { id: 'vietnam', title: '8 days in Vietnam', trav: 2, places: 'Hanoi to Hoi An', source: 'page', req: '2026-10-22', booked: '2026-10-28', start: '2027-01-05', end: '2027-01-12', value: 2000 },
-  { id: 'japan-korea', title: '12 days in Japan and Korea', trav: 2, places: 'Tokyo to Seoul', source: 'page', req: '2026-10-27', booked: null, start: '2027-04-03', end: '2027-04-14', value: 5600 },
-  { id: 'phuket', title: '6 days in Phuket', trav: 4, places: '', source: 'code', req: '2026-10-21', booked: null, start: '2026-12-20', end: '2026-12-25', value: 2800 },
-  { id: 'kuala-lumpur', title: '3 days in Kuala Lumpur', trav: 2, places: '', source: 'page', req: '2026-10-18', booked: null, start: '2027-01-09', end: '2027-01-11', value: 900 },
-  { id: 'japan', title: '10 days in Japan', trav: 3, places: 'Tokyo, Kyoto, Osaka', source: 'code', req: '2026-10-04', booked: '2026-10-12', start: '2026-11-01', end: '2026-11-10', value: 3000,
+  { id: 'kyoto', from: 'Kyoto in autumn', title: '4 days in Kyoto', trav: 2, places: '', source: 'page', req: '2026-11-06', booked: null, start: '2027-01-12', end: '2027-01-15', value: 1600 },
+  { id: 'seoul', from: 'Seoul food week', title: '7 days in Seoul', trav: 4, places: '', source: 'code', req: '2026-11-05', booked: null, start: '2027-02-20', end: '2027-02-26', value: 2400 },
+  { id: 'penang', profile: true, from: 'Penang street food weekend', title: '3 days in Penang', trav: 1, places: '', source: 'page', req: '2026-11-04', booked: null, start: '2026-12-08', end: '2026-12-10', value: 350 },
+  { id: 'bangkok', profile: true, from: 'Bangkok for first timers', title: '5 days in Bangkok', trav: 2, places: '', source: 'page', req: '2026-10-29', booked: '2026-11-03', start: '2026-12-14', end: '2026-12-18', value: 1500 },
+  { id: 'hokkaido', from: 'Hokkaido snow week', title: '5 days in Hokkaido', trav: 2, places: 'Sapporo, Niseko', source: 'app', req: '2026-11-02', booked: null, start: '2027-01-15', end: '2027-01-19', value: 3200 },
+  { id: 'busan', from: 'Busan coast weekend', title: '4 days in Busan', trav: 2, places: '', source: 'page', req: '2026-10-28', booked: '2026-11-01', cancelled: '2026-11-06', start: '2026-12-18', end: '2026-12-21', value: 1400,
+    lines: [['Hotels', '3 nights in Haeundae', 770], ['Experiences', '2 bookings, including a Gamcheon village walk', 250], ['Transport', 'KTX from Seoul and airport transfers', 300], ['Planning fee', 'Holicay planning fee', 80]] },
+  { id: 'hong-kong', from: 'Hong Kong long weekend', title: '4 days in Hong Kong', trav: 3, places: '', source: 'code', req: '2026-10-30', booked: null, start: '2026-12-12', end: '2026-12-15', value: 1800 },
+  { id: 'vietnam', from: 'Hanoi to Hoi An slow route', title: '8 days in Vietnam', trav: 2, places: 'Hanoi to Hoi An', source: 'page', req: '2026-10-22', booked: '2026-10-28', start: '2027-01-05', end: '2027-01-12', value: 2000 },
+  { id: 'japan-korea', from: 'Tokyo to Seoul by rail', title: '12 days in Japan and Korea', trav: 2, places: 'Tokyo to Seoul', source: 'page', req: '2026-10-27', booked: null, start: '2027-04-03', end: '2027-04-14', value: 5600 },
+  { id: 'phuket', from: 'Phuket beach week', title: '6 days in Phuket', trav: 4, places: '', source: 'code', req: '2026-10-21', booked: null, start: '2026-12-20', end: '2026-12-25', value: 2800 },
+  { id: 'kuala-lumpur', from: 'KL food weekend', title: '3 days in Kuala Lumpur', trav: 2, places: '', source: 'app', req: '2026-10-18', booked: null, start: '2027-01-09', end: '2027-01-11', value: 900 },
+  { id: 'japan', from: 'Japan first timer route', title: '10 days in Japan', trav: 3, places: 'Tokyo, Kyoto, Osaka', source: 'code', req: '2026-10-04', booked: '2026-10-12', start: '2026-11-01', end: '2026-11-10', value: 3000,
     lines: [['Hotels', '3 stays, 9 nights in Tokyo, Kyoto and Osaka', 1650], ['Experiences', '5 bookings, including a tea ceremony and a sumo morning practice', 520], ['Transport', '3 rail passes and 2 airport transfers', 640], ['Planning fee', 'Holicay planning fee', 190]] },
-  { id: 'singapore', title: '3 days in Singapore', trav: 2, places: '', source: 'code', req: '2026-09-11', booked: '2026-09-15', start: '2026-10-03', end: '2026-10-05', value: 1500, paidOn: '2026-11-03' },
-  { id: 'bali', title: '6 days in Bali', trav: 2, places: 'Ubud, Uluwatu', source: 'page', req: '2026-08-26', booked: '2026-09-02', start: '2026-10-01', end: '2026-10-06', value: 2400, paidOn: '2026-11-01' },
-  { id: 'taiwan', title: '7 days in Taiwan', trav: 3, places: 'Taipei, Tainan', source: 'page', req: '2026-08-03', booked: '2026-08-10', start: '2026-09-08', end: '2026-09-14', value: 2600, paidOn: '2026-10-08' }
+  { id: 'singapore', from: 'Singapore food weekend', title: '3 days in Singapore', trav: 2, places: '', source: 'code', req: '2026-09-11', booked: '2026-09-15', start: '2026-10-03', end: '2026-10-05', value: 1500 },
+  { id: 'bali', from: 'Bali slow week', title: '6 days in Bali', trav: 2, places: 'Ubud, Uluwatu', source: 'page', req: '2026-08-26', booked: '2026-09-02', start: '2026-10-01', end: '2026-10-06', value: 2400 },
+  { id: 'taiwan', profile: true, from: 'Taiwan by rail', title: '7 days in Taiwan', trav: 3, places: 'Taipei, Tainan', source: 'page', req: '2026-08-03', booked: '2026-08-10', start: '2026-09-08', end: '2026-09-14', value: 2600, paidOn: '2026-10-31' }
 ];
 
 function trips() {
   if (S.demo.data === 'new') return [];
   return BASE_TRIPS.map(function (t) {
-    var pct = rate(t.value), c = Math.round(t.value * pct / 100);
-    var failed = S.demo.payout === 'failed' && t.id === 'singapore';
-    var payDate = t.booked ? (t.paidOn || addMonth(t.start)) : null;
-    var payout = !t.booked ? 'Awaiting booking' : failed ? 'Payout failed' : t.paidOn ? 'Paid ' + fmt(t.paidOn) : 'Pays ' + fmt(payDate);
+    var pct = rate(t.value), cw = Math.round(t.value * pct / 100), can = !!t.cancelled, c = can ? 0 : cw;
+    var failed = false;
+    var payDate = t.booked ? payDay(t.start) : null;
+    var payout = can ? 'No payout, cancelled ' + fmtShort(t.cancelled) : !t.booked ? 'Awaiting booking' : failed ? 'Payout failed' : t.paidOn ? 'Paid ' + fmt(t.paidOn) : 'Pays ' + fmt(payDate);
     var days = +t.title.split(' ')[0];
     return Object.assign({}, t, {
-      pct: pct, c: c, comm: c ? usd(c) : 'Nil', booked_: !!t.booked, requested: !t.booked, failed: failed,
+      from: t.source === 'code' ? 'Promo code ANNA10' : t.profile ? 'Profile page' : t.from, pct: pct, c: c, cw: cw, comm: cw ? usd(cw) : 'Nil', booked_: !!t.booked && !can, requested: !t.booked && !can, cancelled_: can, failed: failed,
       paid: !!t.paidOn && !failed, d: t.booked || t.req, payDate: payDate, payout: payout,
       dates: fmtRange(t.start, t.end), sub: plural(t.trav, 'traveller') + (t.places ? ' · ' + t.places : ''),
-      sourceText: t.source === 'page' ? 'Your page' : 'Code ANNA10', nights: days - 1,
+      sourceText: { page: 'Your page', code: 'Code ANNA10', app: 'Found on Holicay' }[t.source], via: { page: 'via your page', code: 'via code ANNA10', app: 'found in the Holicay app' }[t.source], nights: days - 1,
       bookedOn: t.booked ? fmt(t.booked) : 'Not yet', bookedSub: 'Requested ' + fmtShort(t.req)
     });
   });
@@ -408,15 +459,9 @@ function methodLabel() {
 
 function payouts() {
   var list = trips().filter(function (t) { return t.booked_ && t.c > 0; }).map(function (t) {
-    var started = t.start <= TODAY;
-    return {
-      iso: t.paidOn || t.payDate, date: fmt(t.paidOn || t.payDate), trip: t.title, tripId: t.id, amount: t.c,
-      paid: t.paid, failed: t.failed, upcoming: !t.paid && !t.failed, rollover: false,
-      note: t.failed ? 'Wise rejected the account details' : t.paid ? 'Arrived ' + fmtShort(addDays(t.paidOn, 1)) : (started ? 'Trip started ' : 'Trip starts ') + fmtShort(t.start)
-    };
+    return { iso: t.payDate, date: fmt(t.payDate), trip: t.title, tripId: t.id, amount: t.c, paid: t.paid, upcoming: !t.paid };
   });
-  if (S.demo.payout === 'rollover' && S.demo.data !== 'new') list.push({ iso: '2026-11-28', date: '28 Nov 2026', trip: '2 days in Melaka', amount: 32, rollover: true, note: 'Under the USD 50 minimum. Added to your 1 Dec payout.' });
-  list.sort(function (a, b) { return a.iso < b.iso ? 1 : -1; });
+  list.sort(function (a, b) { return a.iso < b.iso ? 1 : a.iso > b.iso ? -1 : (a.trip < b.trip ? -1 : 1); });
   return list;
 }
 
@@ -427,8 +472,8 @@ function freshState() {
     route: 'login', authed: false, loading: false, mini: false, menu: false, toast: '',
     demo: { data: 'full', payout: 'normal', slow: false, open: false },
     login: { screen: 'login', email: '', password: '', femail: '', newpw: '', confirm: '', errors: {}, banner: null, attempts: 0, busy: false, resent: false, info: null },
-    dash: { range: '30', filter: 'all', from: '2026-10-08', to: '2026-11-07', af: '2026-10-08', at: '2026-11-07', rangeErr: '', tip: false, share: false, copied: false, linkCopied: false },
-    trips: { range: 'c', from: '2026-08-01', to: '2026-11-07', af: '2026-08-01', at: '2026-11-07', rangeErr: '', filter: 'all', src: 'all', q: '', page: 0, linkCopied: false },
+    dash: { range: '30', filter: 'all', from: '2026-10-08', to: '2026-11-07', af: '2026-10-08', at: '2026-11-07', rangeErr: '', tip: false, payTip: false, share: false, copied: false, linkCopied: false },
+    trips: { range: 'c', from: '2026-08-01', to: '2026-11-07', af: '2026-08-01', at: '2026-11-07', rangeErr: '', filter: 'all', src: 'all', pkg: 'all', q: '', page: 0, linkCopied: false },
     pay: { filter: 'all' },
     bank: { method: 'wise', cur: 'wise', pend: null, v: Object.assign({}, BANK_V), saved: Object.assign({}, BANK_V), errors: {}, ok: false, saving: false, verifyOpen: false, code: '', codeErr: '', verifying: false, resent: false },
     me: { editing: false, v: { cur: '', nw: '', cf: '' }, errors: {}, saved: false, busy: false, n: { booked: true, paid: true, news: false }, nSaved: false, linkCopied: false, del: false, delOk: false, photo: null, photoErr: '' }
@@ -445,26 +490,59 @@ function copyText(text) { try { if (navigator.clipboard) navigator.clipboard.wri
 function errIcon() { return svg(I.alert, 16, 2); }
 function fieldErr(msg) { return msg ? '<span class="err">' + errIcon() + esc(msg) + '</span>' : ''; }
 function pill(t) {
+  if (t.cancelled_) return '<span class="pill pill-bad">Cancelled</span>';
   if (t.booked_) return '<span class="pill pill-booked">Booked</span>';
   return '<span class="pill pill-req">Requested</span>';
 }
 function rangeBar(o, scope) {
-  var segs = [['y', 'Yesterday'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['c', 'Customise']];
+  var segs = [['y', 'Yesterday'], ['7', 'Last 7 days'], ['30', 'Last 30 days'], ['life', 'Lifetime'], ['c', 'Customise']];
   var h = '<div class="stack g8"><span id="' + scope + '-range-l" class="lbl">Booking date range</span><div class="row g12"><div class="seg-group" role="group" aria-labelledby="' + scope + '-range-l">';
   segs.forEach(function (s) { h += '<button type="button" class="seg' + (o.range === s[0] ? ' on' : '') + '" aria-pressed="' + (o.range === s[0]) + '" data-act="range" data-scope="' + scope + '" data-arg="' + s[0] + '">' + s[1] + '</button>'; });
   h += '</div>';
-  if (o.range === 'c') {
-    var bad = o.rangeErr ? ' bad' : '';
-    h += '<div class="daterange"><label for="' + scope + '-from">From<input id="' + scope + '-from" type="date" class="' + bad + '" value="' + esc(o.from) + '" max="' + TODAY + '" data-bind="' + scope + '.from" data-on="change" aria-invalid="' + !!o.rangeErr + '" aria-describedby="' + scope + '-range-err"></label>' +
-      '<label for="' + scope + '-to" style="padding-left:0">To<input id="' + scope + '-to" type="date" class="' + bad + '" value="' + esc(o.to) + '" data-bind="' + scope + '.to" data-on="change" aria-invalid="' + !!o.rangeErr + '" aria-describedby="' + scope + '-range-err"></label>' +
-      '<button type="button" class="btn btn-navy btn-sm" data-act="applyRange" data-scope="' + scope + '">Apply</button></div>';
-  }
+  if (o.range === 'c') h += '<button type="button" class="datebtn' + (o.calOpen ? ' open' : '') + '" data-act="toggleCal" data-scope="' + scope + '" aria-expanded="' + !!o.calOpen + '" aria-haspopup="dialog">' + svg(I.cal, 18) + fmtRange(o.af, o.at) + svg('<path d="m6 9 6 6 6-6"/>', 16, 2) + '</button>';
   h += '</div>';
-  if (o.rangeErr) h += '<p id="' + scope + '-range-err" class="errline" role="alert">' + errIcon() + esc(o.rangeErr) + '</p>';
+  if (o.calOpen) h += calPop(o, scope);
   return h + '</div>';
 }
+var MONL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function shiftM(ym, k) { var p = ym.split('-').map(Number), y = p[0], m = p[1] + k; while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; } return y + '-' + String(m).padStart(2, '0'); }
+function calMonth(c, ym, scope, nav) {
+  var p = ym.split('-').map(Number), y = p[0], m = p[1];
+  var lead = (new Date(Date.UTC(y, m - 1, 1)).getUTCDay() + 6) % 7, len = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  var both = c.s && c.e && c.s !== c.e;
+  var nextOff = shiftM(c.view, 1) >= TODAY.slice(0, 7);
+  var h = '<div class="cal-month"><div class="cal-title">' +
+    '<button type="button" class="cal-nav' + (nav === 'r' ? ' m-only' : '') + '" data-act="calNav" data-scope="' + scope + '" data-arg="-1" aria-label="Previous month">' + svg(I.left, 16, 2) + '</button>' +
+    '<span>' + MONL[m - 1] + ' ' + y + '</span>' +
+    (nav === 'r' ? '<button type="button" class="cal-nav" data-act="calNav" data-scope="' + scope + '" data-arg="1" aria-label="Next month"' + (nextOff ? ' disabled' : '') + '>' + svg('<path d="M9 18l6-6-6-6"/>', 16, 2) + '</button>' : '<span style="width:36px"></span>') +
+    '</div><div class="cal-grid">' + ['Mo','Tu','We','Th','Fr','Sa','Su'].map(function (d) { return '<span class="cal-wd">' + d + '</span>'; }).join('');
+  for (var i = 0; i < lead; i++) h += '<span></span>';
+  for (var d = 1; d <= len; d++) {
+    var iso = ym + '-' + String(d).padStart(2, '0'), fut = iso > TODAY, cls = [];
+    if (iso === c.s || iso === c.e) cls.push('sel');
+    if (both && iso > c.s && iso < c.e) cls.push('in');
+    if (both && iso === c.s) cls.push('rs');
+    if (both && iso === c.e) cls.push('re');
+    if (iso === TODAY) cls.push('today');
+    if (fut) cls.push('dis');
+    h += '<button type="button" class="cal-d ' + cls.join(' ') + '"' + (fut ? ' disabled' : ' data-act="calDay" data-scope="' + scope + '" data-arg="' + iso + '"') + ' aria-label="' + d + ' ' + MONL[m - 1] + ' ' + y + (fut ? ', not available' : '') + '" aria-pressed="' + (cls.indexOf('sel') >= 0) + '"><span>' + d + '</span></button>';
+  }
+  return h + '</div></div>';
+}
+function calPop(o, scope) {
+  var c = o.cal, n = c.s && c.e ? Math.round((Date.parse(c.e) - Date.parse(c.s)) / 864e5) + 1 : 0;
+  var sum = c.s && c.e ? fmtRange(c.s, c.e) + ' · ' + plural(n, 'day') : 'From ' + fmt(c.s) + ', choose an end date';
+  return '<div class="cal-anchor"><div class="cal-pop" role="dialog" aria-label="Choose booking dates">' +
+    '<div class="stack g2"><span style="font-size:16px;line-height:24px;font-weight:600;color:var(--navy)">Choose booking dates</span><span class="sub">' + (c.e ? 'Tap a start date, then an end date.' : 'Now tap an end date.') + '</span></div>' +
+    '<div class="cal-months">' + calMonth(c, c.view, scope, 'l') + calMonth(c, shiftM(c.view, 1), scope, 'r') + '</div>' +
+    '<div class="cal-foot"><span role="status" style="font-size:14px;line-height:20px;font-weight:600;color:var(--navy)">' + sum + '</span><div class="row g8">' +
+    '<button type="button" class="btn btn-secondary btn-sm" style="min-height:40px" data-act="calCancel" data-scope="' + scope + '">Cancel</button>' +
+    (c.e ? '<button type="button" class="btn btn-navy btn-sm" style="min-height:40px" data-act="calApply" data-scope="' + scope + '">Apply dates</button>' : '<button type="button" class="btn btn-sm is-off" style="min-height:40px" disabled>Apply dates</button>') +
+    '</div></div></div></div>';
+}
+function openCal(o) { o.calOpen = true; o.cal = { view: shiftM(o.at.slice(0, 7), -1), s: o.af, e: o.at }; }
 function windowFor(o) {
-  return { y: ['2026-11-06', '2026-11-06'], '7': ['2026-10-31', '2026-11-07'], '30': ['2026-10-08', '2026-11-07'], c: [o.af, o.at] }[o.range];
+  return { y: ['2026-11-06', '2026-11-06'], '7': ['2026-10-31', '2026-11-07'], '30': ['2026-10-08', '2026-11-07'], life: ['2000-01-01', TODAY], c: [o.af, o.at] }[o.range];
 }
 function checkRange(a, b) {
   if (!a || !b) return 'Choose a start date and an end date.';
@@ -510,12 +588,15 @@ function avatar(big) {
 }
 
 /* ---------- login ---------- */
+var BRAND = "<aside aria-label=\"About the Holicay Travel Creator program\" style=\"flex: 1 1 560px; position: relative; overflow: hidden; box-sizing: border-box; padding: 44px 56px 48px; background: radial-gradient(120% 80% at 100% 0%, rgba(242,81,66,0.16) 0%, rgba(242,81,66,0) 55%), #133a4a; color: #ffffff; display: flex; justify-content: center;\"><div style=\"flex: 1; width: 100%; max-width: 560px; display: flex; flex-direction: column; justify-content: space-between; gap: 36px;\"><div style=\"display: flex; flex-direction: column; gap: 8px;\"><img src=\"__LOGOSRC__\" alt=\"Holicay\" style=\"display: block; height: 30px; width: auto; align-self: flex-start;\"><span style=\"font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f9c6bc;\">Travel Creator</span></div><div style=\"display: flex; flex-direction: column; gap: 16px; max-width: 520px;\"><h2 style=\"margin: 0; font-size: 44px; line-height: 52px; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; text-wrap: balance;\">Your trips are someone\u2019s <span style=\"color: #f9c6bc;\">next holiday.</span></h2><p style=\"margin: 0; max-width: 460px; font-size: 17px; line-height: 26px; color: #c9d7df;\">Every time a follower books a trip you planned, you earn. Log in to see what your trips are earning.</p></div><div style=\"position: relative; padding: 8px 0 8px; display: flex; flex-direction: column; gap: 14px;\"><svg aria-hidden=\"true\" viewBox=\"0 0 400 300\" preserveAspectRatio=\"none\" style=\"position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;\"><path d=\"M10 270 C 90 200, 60 120, 170 120 S 300 40, 390 20\" fill=\"none\" stroke=\"rgba(249,198,188,0.45)\" stroke-width=\"2\" stroke-dasharray=\"2 9\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\"></path></svg><div style=\"position: relative; display: flex; flex-direction: column; gap: 14px;\"><div style=\"display: flex; align-items: center; gap: 12px; width: 100%; max-width: 360px; box-sizing: border-box; margin-left: 0; padding: 14px 16px; background: #ffffff; border-radius: 14px; box-shadow: 0 18px 40px rgba(4,20,28,0.35); transform: rotate(-2deg); color: #101828;\"><span aria-hidden=\"true\" style=\"width: 40px; height: 40px; flex: none; border-radius: 10px; background: #fdeee9; display: flex; align-items: center; justify-content: center;\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f25142\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 2 11 13\"></path><path d=\"M22 2 15 22l-4-9-9-4 20-7z\"></path></svg></span><span style=\"display: flex; flex-direction: column; min-width: 0;\"><span style=\"font-size: 14px; line-height: 20px; font-weight: 600; color: #133a4a;\">Trip booked</span><span style=\"font-size: 12px; line-height: 16px; color: #717680;\">10 days in Japan \u00b7 3 travellers</span></span><span style=\"margin-left: auto; padding-left: 12px; font-size: 16px; line-height: 24px; font-weight: 700; color: #067647; white-space: nowrap;\">+USD 150</span></div><div style=\"display: flex; align-items: center; gap: 12px; width: 100%; max-width: 360px; box-sizing: border-box; margin-left: 48px; padding: 14px 16px; background: #ffffff; border-radius: 14px; box-shadow: 0 18px 40px rgba(4,20,28,0.35); transform: rotate(1.5deg); color: #101828;\"><span aria-hidden=\"true\" style=\"width: 40px; height: 40px; flex: none; border-radius: 10px; background: #eef3f6; display: flex; align-items: center; justify-content: center;\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133a4a\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z\"></path><path d=\"M9 4v14M15 6v14\"></path></svg></span><span style=\"display: flex; flex-direction: column; min-width: 0;\"><span style=\"font-size: 14px; line-height: 20px; font-weight: 600; color: #133a4a;\">New trip request</span><span style=\"font-size: 12px; line-height: 16px; color: #717680;\">4 days in Kyoto \u00b7 from Kyoto in autumn</span></span></div><div style=\"display: flex; align-items: center; gap: 12px; width: 100%; max-width: 360px; box-sizing: border-box; margin-left: 16px; padding: 14px 16px; background: #ffffff; border-radius: 14px; box-shadow: 0 18px 40px rgba(4,20,28,0.35); transform: rotate(-1deg); color: #101828;\"><span aria-hidden=\"true\" style=\"width: 40px; height: 40px; flex: none; border-radius: 10px; background: #ecfdf3; display: flex; align-items: center; justify-content: center;\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#067647\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"14\" rx=\"2\"></rect><path d=\"M3 10h18M16 15h2\"></path></svg></span><span style=\"display: flex; flex-direction: column; min-width: 0;\"><span style=\"font-size: 14px; line-height: 20px; font-weight: 600; color: #133a4a;\">Payout sent</span><span style=\"font-size: 12px; line-height: 16px; color: #717680;\">Paid to your Wise account</span></span><span style=\"margin-left: auto; padding-left: 12px; font-size: 16px; line-height: 24px; font-weight: 700; color: #133a4a; white-space: nowrap;\">USD 120</span></div></div><span style=\"position: relative; align-self: flex-start; margin-left: 4px; font-size: 12px; line-height: 16px; color: #8ea3b0;\">What you\u2019ll see on your dashboard</span></div><ul style=\"list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px;\"><li style=\"display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 22px; color: #e6ecf0;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: rgba(249,198,188,0.14); display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f9c6bc\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 2 11 13\"></path><path d=\"M22 2 15 22l-4-9-9-4 20-7z\"></path></svg></span>Earn commission on every trip your followers book</li><li style=\"display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 22px; color: #e6ecf0;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: rgba(249,198,188,0.14); display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f9c6bc\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"14\" rx=\"2\"></rect><path d=\"M3 10h18M16 15h2\"></path></svg></span>Get paid at the end of the month after each trip starts</li><li style=\"display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 22px; color: #e6ecf0;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: rgba(249,198,188,0.14); display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f9c6bc\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z\"></path></svg></span>Your followers get 20% off Holicay Pro</li></ul></div></aside>";
+var PHONE_HERO = "<div aria-label=\"About the Holicay Travel Creator program\" role=\"region\" style=\"position: relative; box-sizing: border-box; padding: 24px 20px 0; border-radius: 0 0 24px 24px; background: radial-gradient(120% 90% at 100% 0%, rgba(242,81,66,0.2) 0%, rgba(242,81,66,0) 60%), #133a4a; color: #ffffff; display: flex; flex-direction: column; gap: 20px;\"><div style=\"display: flex; align-items: center; justify-content: space-between; gap: 12px;\"><img src=\"__LOGOSRC__\" alt=\"Holicay\" style=\"display: block; height: 24px; width: auto;\"><span style=\"font-size: 10px; line-height: 16px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f9c6bc;\">Travel Creator</span></div><div style=\"display: flex; flex-direction: column; gap: 8px;\"><h2 style=\"margin: 0; font-size: 30px; line-height: 36px; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; text-wrap: balance;\">Your trips are someone\u2019s <span style=\"color: #f9c6bc;\">next holiday.</span></h2><p style=\"margin: 0; font-size: 15px; line-height: 22px; color: #c9d7df;\">Every time a follower books a trip you planned, you earn.</p></div><div style=\"margin-bottom: -30px; display: flex; justify-content: center;\"><div style=\"display: flex; align-items: center; gap: 12px; width: 100%; max-width: 360px; box-sizing: border-box; margin-left: 0; padding: 14px 16px; background: #ffffff; border-radius: 14px; box-shadow: 0 18px 40px rgba(4,20,28,0.35); transform: rotate(-1.5deg); color: #101828;\"><span aria-hidden=\"true\" style=\"width: 40px; height: 40px; flex: none; border-radius: 10px; background: #fdeee9; display: flex; align-items: center; justify-content: center;\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f25142\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 2 11 13\"></path><path d=\"M22 2 15 22l-4-9-9-4 20-7z\"></path></svg></span><span style=\"display: flex; flex-direction: column; min-width: 0;\"><span style=\"font-size: 14px; line-height: 20px; font-weight: 600; color: #133a4a;\">Trip booked</span><span style=\"font-size: 12px; line-height: 16px; color: #717680;\">10 days in Japan</span></span><span style=\"margin-left: auto; padding-left: 12px; font-size: 16px; line-height: 24px; font-weight: 700; color: #067647; white-space: nowrap;\">+USD 150</span></div></div></div>";
+var PHONE_POINTS = "<ul aria-label=\"Why join\" style=\"list-style: none; margin: 0; padding: 0; width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px;\"><li style=\"display: flex; align-items: center; gap: 12px; font-size: 14px; line-height: 20px; color: #414651;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: #fdeee9; display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f25142\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 2 11 13\"></path><path d=\"M22 2 15 22l-4-9-9-4 20-7z\"></path></svg></span>Earn commission on every trip your followers book</li><li style=\"display: flex; align-items: center; gap: 12px; font-size: 14px; line-height: 20px; color: #414651;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: #fdeee9; display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f25142\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"14\" rx=\"2\"></rect><path d=\"M3 10h18M16 15h2\"></path></svg></span>Get paid at the end of the month after each trip starts</li><li style=\"display: flex; align-items: center; gap: 12px; font-size: 14px; line-height: 20px; color: #414651;\"><span aria-hidden=\"true\" style=\"width: 32px; height: 32px; flex: none; border-radius: 999px; background: #fdeee9; display: flex; align-items: center; justify-content: center;\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#f25142\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z\"></path></svg></span>Your followers get 20% off Holicay Pro</li></ul>";
 function viewLogin() {
   var L = S.login, e = L.errors;
   var h = '<div class="auth"><main class="card auth-card"><div class="auth-brand"><img src="' + LOGO + '" alt="Holicay"><span class="tagline">Travel Creator</span></div>';
   if (L.screen === 'login') {
     var locked = L.banner === 'locked';
-    h += '<form class="stack g24" data-form="login" novalidate><div class="stack g4"><h1 class="auth-h">Log in to your creator account</h1><p class="sub">See your trips, commissions and payouts.</p></div>';
+    h += '<form class="stack g24" data-form="login" novalidate><div class="stack g4"><h1 class="auth-h">Welcome back</h1><p class="sub">Log in to see your trips, commissions and payouts.</p></div>';
     if (L.info === 'session') h += '<div class="banner info tight" role="status">' + svg(I.clock) + '<div class="bt"><strong>You’ve been logged out</strong><span class="bs">For your security, we log you out after 30 minutes without activity. Log in again to pick up where you left off.</span></div></div>';
     if (L.info === 'deleted') h += '<div class="banner info tight" role="status">' + svg(I.info) + '<div class="bt"><strong>Your account has been deleted</strong><span class="bs">Your page and promo code no longer work. Pending payouts will still be paid.</span></div></div>';
     if (L.info === 'loggedout') h += '<div class="banner info tight" role="status">' + svg(I.okc) + '<div class="bt"><strong>You’ve logged out</strong><span class="bs">See you next time.</span></div></div>';
@@ -562,7 +643,7 @@ function viewLogin() {
   if (L.screen === 'login') note = 'Log in with <code>anna.wong@example.com</code> and password <code>holicay2026</code>. Use any other password to see the error message. After 5 wrong tries the account locks.<button type="button" class="linkbtn" data-act="fillDemo">Fill in the demo login</button>';
   if (L.screen === 'sent') note = 'Pretend you opened the email.<span class="row g12"><button type="button" class="linkbtn" data-act="openReset">Open the reset link</button><button type="button" class="linkbtn" data-act="openExpired">Open an expired link</button></span>';
   if (note) h += '<div class="demo-note"><strong style="color:var(--ink)">Prototype</strong><span>' + note + '</span></div>';
-  return h + '</div>';
+  return '<div class="auth-split">' + BRAND.replace('__LOGOSRC__', LOGO_NAVY) + '<div class="phone-only">' + PHONE_HERO.replace('__LOGOSRC__', LOGO_NAVY) + '</div>' + h + '<div class="phone-only" style="width:100%;max-width:440px">' + PHONE_POINTS + '</div></div></div>';
 }
 
 /* ---------- dashboard ---------- */
@@ -574,15 +655,15 @@ function viewDashboard() {
   var earned = bookedIn.reduce(function (a, t) { return a + t.c; }, 0);
   var paidIn = payouts().filter(function (p) { return p.paid && p.iso >= win[0] && p.iso <= win[1]; });
   var paidSum = paidIn.reduce(function (a, p) { return a + p.amount; }, 0);
-  var period = { y: 'Yesterday · 6 Nov 2026', '7': 'Last 7 days · 31 Oct to 7 Nov 2026', '30': 'Last 30 days · 8 Oct to 7 Nov 2026', c: 'Custom range · ' + fmtRange(D.af, D.at) }[D.range];
-  var earnedSub = empty ? 'No trips booked yet' : bookedIn.length === 0 ? 'No trips were booked' : bookedIn.length === 1 ? 'From 1 trip booked: ' + bookedIn[0].title : 'From ' + bookedIn.length + ' trips booked. Paid 1 month after each trip starts.';
+  var period = { y: 'Yesterday · 6 Nov 2026', '7': 'Last 7 days · 31 Oct to 7 Nov 2026', '30': 'Last 30 days · 8 Oct to 7 Nov 2026', life: 'Lifetime' + (all.length ? ' · since ' + fmt(all.map(function (t) { return t.req; }).sort()[0]) : ''), c: 'Custom range · ' + fmtRange(D.af, D.at) }[D.range];
+  var earnedSub = empty ? 'No trips booked yet' : bookedIn.length === 0 ? 'No trips were booked' : bookedIn.length === 1 ? 'From 1 trip booked: ' + bookedIn[0].title : 'From ' + bookedIn.length + ' trips booked. Paid at the end of the month after each trip starts.';
   var paidSub = empty ? 'No payouts yet' : paidIn.length === 0 ? 'No payouts were sent' : plural(paidIn.length, 'payout') + ' sent, on ' + joinList(paidIn.slice().reverse().map(function (p) { return fmtShort(p.iso); }));
 
   var h = '<div class="wrap"><div class="row between g20" style="align-items:flex-end"><div class="stack g8" style="min-width:0"><h1 class="h1">Hi Anna, here is how your trips are earning</h1>' +
     '<div class="row g8"><span class="chip strong">Full commission · 4 to 8%</span><span class="chip">Updated 7 Nov 2026, 09:40</span></div></div>' +
-    '<div class="row g12"><div class="promo"><span class="small" style="color:var(--ink2)">Your promo code</span><span class="promo-code">ANNA10</span><span class="pill pill-soft">10% off</span>' +
+    '<div class="row g12"><div class="promo"><span class="small" style="color:var(--ink2)">Your promo code</span><span class="promo-code">ANNA10</span><span class="pill pill-soft">20% off</span>' +
     '<button type="button" class="btn btn-secondary btn-sm" style="min-width:86px" data-act="copyCode">' + (D.copied ? '<span style="color:var(--ok);display:flex">' + svg(I.check, 16, 2.25) + '</span>Copied' : 'Copy') + '</button></div>' +
-    '<button type="button" class="btn btn-primary" style="min-height:48px" data-act="openShare">' + svg(I.share, 18, 2) + 'Share my page</button></div></div>';
+    '<button type="button" class="btn btn-primary btn-sm" data-act="openShare">' + svg(I.share, 16, 2) + 'Share my page</button></div></div>';
 
   if (S.loading) return h + skeleton('dash') + '</div>';
 
@@ -594,17 +675,31 @@ function viewDashboard() {
     '<div class="row between g12"><span>Earned</span><strong style="font-weight:600">' + usd(earned) + '</strong></div><span class="tm" style="margin-bottom:10px">' + esc(earnedSub) + '</span>' +
     '<div class="row between g12" style="padding-top:10px;border-top:1px solid rgba(255,255,255,.16)"><span>Paid out</span><strong style="font-weight:600">' + usd(paidSum) + '</strong></div><span class="tm">' + esc(paidSub) + '</span></div></div>' +
     '<span class="stat">' + usd(earned) + '</span></div>' +
-    statCard('Payouts', usd(paidSum)) + '</section>';
+    payCard() + '</section>';
+  function payCard() {
+    var pend = payouts().filter(function (p) { return p.upcoming; });
+    var nextIso = pend.map(function (p) { return p.iso; }).sort()[0];
+    var nextGroup = pend.filter(function (p) { return p.iso === nextIso; });
+    var next = nextIso ? { iso: nextIso, amount: nextGroup.reduce(function (a, p) { return a + p.amount; }, 0), trip: joinList(nextGroup.map(function (p) { return p.trip; })) } : null;
+    var pendSum = pend.reduce(function (a, p) { return a + p.amount; }, 0);
+    var list = paidIn.length ? '<ul style="list-style:none;margin:6px 0 10px;padding:0;display:flex;flex-direction:column;gap:4px">' + paidIn.map(function (p) { return '<li class="row between g12" style="flex-wrap:nowrap"><span class="tm">' + fmtShort(p.iso) + ' · ' + esc(p.trip) + '</span><span style="font-size:12px;line-height:16px">' + usd(p.amount) + '</span></li>'; }).join('') + '</ul>' : '<span class="tm" style="margin-bottom:10px">No payouts were sent in this period</span>';
+    return '<div class="card pad stack g4"><div class="tipwrap"><span class="stat-label">Payouts</span><button type="button" class="tipbtn" data-act="payTip" aria-label="Payouts sent in this period" aria-describedby="pay-tip" aria-expanded="' + D.payTip + '">' + svg(I.info, 16, 2) + '</button>' +
+      '<div id="pay-tip" role="tooltip" class="tipbox short' + (D.payTip ? ' open' : '') + '"><span class="tm" style="margin-bottom:10px;font-weight:600">' + esc(period) + '</span>' +
+      '<div class="row between g12"><span>Paid out</span><strong style="font-weight:600">' + usd(paidSum) + '</strong></div>' + list +
+      '<div class="row between g12" style="padding-top:10px;border-top:1px solid rgba(255,255,255,.16)"><span>Next payout</span><strong style="font-weight:600">' + (next ? usd(next.amount) : 'None yet') + '</strong></div>' +
+      '<span class="tm">' + (next ? fmt(next.iso) + ', for ' + esc(next.trip) + '. ' + usd(pendSum) + ' is pending in total.' : 'Paid at the end of the month after a booked trip starts') + '</span></div></div>' +
+      '<span class="stat">' + usd(paidSum) + '</span></div>';
+  }
 
-  var counts = { all: all.length, req: all.filter(function (t) { return t.requested; }).length, book: all.filter(function (t) { return t.booked_; }).length };
-  var rows = all.filter(function (t) { return D.filter === 'all' || (D.filter === 'req' ? t.requested : t.booked_); }).sort(function (a, b) { return a.d < b.d ? 1 : -1; }).slice(0, 6);
+  var counts = { all: all.length, req: all.filter(function (t) { return t.requested; }).length, book: all.filter(function (t) { return t.booked_; }).length, can: all.filter(function (t) { return t.cancelled_; }).length };
+  var rows = all.filter(function (t) { return D.filter === 'all' || (D.filter === 'req' ? t.requested : D.filter === 'can' ? t.cancelled_ : t.booked_); }).sort(function (a, b) { return a.d < b.d ? 1 : -1; }).slice(0, 6);
 
   h += '<div class="split dash-split"><section class="card main-col stack" aria-labelledby="trips-h"><div class="row between g12" style="padding:20px 20px 16px;align-items:flex-start"><div class="stack g2"><h2 id="trips-h" class="h2">Latest trips</h2><p class="sub">Requests tagged to you, with when they were booked and when you get paid.</p></div>';
-  if (!empty) h += '<div class="ftabs" role="group" aria-label="Filter trips">' + ftab('dashFilter', 'all', D.filter, 'All ' + counts.all) + ftab('dashFilter', 'req', D.filter, 'Requested ' + counts.req) + ftab('dashFilter', 'book', D.filter, 'Booked ' + counts.book) + '</div>';
+  if (!empty) h += '<div class="ftabs" role="group" aria-label="Filter trips">' + ftab('dashFilter', 'all', D.filter, 'All ' + counts.all) + ftab('dashFilter', 'req', D.filter, 'Requested ' + counts.req) + ftab('dashFilter', 'book', D.filter, 'Booked ' + counts.book) + (counts.can ? ftab('dashFilter', 'can', D.filter, 'Cancelled ' + counts.can) : '') + '</div>';
   h += '</div>';
   if (!empty) {
-    h += '<div class="tablewrap"><table class="tbl stack-sm" style="min-width:860px"><thead><tr><th scope="col">Trip</th><th scope="col">Status</th><th scope="col">Booked on</th><th scope="col">Trip dates</th><th scope="col" class="r">Trip value</th><th scope="col" class="r">Commission</th><th scope="col">Payout</th></tr></thead><tbody>';
-    rows.forEach(function (t) { h += tripRow(t, false); });
+    h += '<div class="tablewrap"><table class="tbl trips stack-sm" style="min-width:1060px">' + TRIP_HEAD + '<tbody>';
+    rows.forEach(function (t) { h += tripRow(t); });
     h += '</tbody></table></div><div class="tfoot"><span class="small" style="font-size:14px">Showing ' + rows.length + ' of ' + counts[D.filter] + ' trips</span><a href="#trips" style="font-size:14px;font-weight:600;color:var(--coral)">View all trips</a></div>';
   } else {
     h += '<div class="empty"><span class="empty-ic">' + svg(I.plane, 24) + '</span><h3 class="h3">No trip requests yet</h3><p>When travellers plan a trip from your page or use code ANNA10, their requests show up here. Share your page to get your first one.</p><button type="button" class="btn btn-primary" data-act="openShare">Share my page</button></div>';
@@ -617,19 +712,22 @@ function viewDashboard() {
 }
 function statCard(label, val) { return '<div class="card pad stack g4"><span class="stat-label">' + label + '</span><span class="stat">' + val + '</span></div>'; }
 function ftab(act, key, cur, label) { return '<button type="button" class="ftab' + (cur === key ? ' on' : '') + '" aria-pressed="' + (cur === key) + '" data-act="' + act + '" data-arg="' + key + '">' + label + '</button>'; }
-function tripRow(t, withSource) {
-  return '<tr class="clickable" data-go="trip-' + t.id + '"><td><a class="tlink" href="#trip-' + t.id + '">' + esc(t.title) + '</a><div class="small">' + esc(t.sub) + '</div></td>' +
-    (withSource ? '<td class="muted nw" data-label="Source">' + t.sourceText + '</td>' : '') +
-    '<td data-label="Status">' + pill(t) + '</td><td data-label="Booked on"><div style="font-weight:500">' + t.bookedOn + '</div><div class="small">' + t.bookedSub + '</div></td>' +
-    '<td class="muted nw" data-label="Trip dates">' + t.dates + '</td><td class="r muted nw num" data-label="Trip value">' + usd(t.value) + '</td><td class="r strong nw num" data-label="Commission">' + t.comm + '</td>' +
-    '<td class="nw" data-label="Payout" style="color:' + (t.failed ? 'var(--bad)' : 'var(--ink2)') + '">' + t.payout + '</td></tr>';
+function tripRow(t) {
+  return '<tr class="clickable" data-go="trip-' + t.id + '"><td style="min-width:130px"><a class="tlink" href="#trip-' + t.id + '">' + esc(t.title) + '</a></td>' +
+    '<td class="muted nw" data-label="Dates">' + t.dates + '</td><td class="r muted num" data-label="Pax">' + t.trav + '</td>' +
+    '<td data-label="Status">' + pill(t) + '</td><td class="r muted nw num" data-label="Trip value">' + usd(t.value) + '</td>' +
+    '<td class="r strong nw num' + (t.cancelled_ ? ' struck' : '') + '" data-label="Commission">' + t.comm + '</td>' +
+    '<td style="min-width:140px" data-label="Source">' + esc(t.from) + '</td><td class="muted nw" data-label="Requested date">' + fmt(t.req) + '</td>' +
+    '<td class="muted nw" data-label="Booked date">' + t.bookedOn + '</td>' +
+    '<td data-label="Payout" style="min-width:120px;color:' + (t.failed ? 'var(--bad)' : 'var(--ink2)') + '">' + t.payout + '</td></tr>';
 }
+var TRIP_HEAD = '<thead><tr><th scope="col">Trip name</th><th scope="col">Dates</th><th scope="col" class="r">Pax</th><th scope="col">Status</th><th scope="col" class="r">Trip value</th><th scope="col" class="r">Commission</th><th scope="col">Source</th><th scope="col">Requested date</th><th scope="col">Booked date</th><th scope="col">Payout</th></tr></thead>';
 function shareDialog() {
   var D = S.dash;
   return '<div class="overlay" data-act="closeShare" data-self="1"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="share-h">' +
     '<div class="row between g12" style="align-items:flex-start;flex-wrap:nowrap"><div class="stack g4"><h2 id="share-h" class="h2">Share your creator page</h2><p class="sub">Travellers who plan a trip from your page are tagged to you, so you earn commission when they book.</p></div><button type="button" class="x" data-act="closeShare" aria-label="Close">' + svg(I.x, 18, 2) + '</button></div>' +
     '<div class="stack" style="gap:6px"><span class="lbl">Your page link</span><div class="row g8" style="flex-wrap:nowrap"><div class="codebox">holicay.com/creator/anna</div><button type="button" class="btn btn-navy btn-sm" style="min-height:44px;min-width:112px" data-act="copyLink" data-scope="dash">' + (D.linkCopied ? 'Link copied' : 'Copy link') + '</button></div></div>' +
-    '<div class="banner note tight">Your promo code&nbsp;<strong style="color:var(--navy)">ANNA10</strong>&nbsp;gives travellers 10% off. Add it to your video captions and bio.</div>' +
+    '<div class="banner note tight">Your promo code&nbsp;<strong style="color:var(--navy)">ANNA10</strong>&nbsp;gives your followers 20% off Holicay Pro. Add it to your video captions and bio.</div>' +
     '<button type="button" class="btn btn-secondary" style="align-self:flex-end" data-act="closeShare">Done</button></div></div>';
 }
 
@@ -640,35 +738,36 @@ function viewTrips() {
   if (S.loading) return h + skeleton('trips') + '</div>';
   var win = windowFor(T);
   var inR = all.filter(function (t) { return t.d >= win[0] && t.d <= win[1]; });
-  var bySrc = T.src === 'all' ? inR : inR.filter(function (t) { return t.source === T.src; });
+  var bySrc = (T.src === 'all' ? inR : inR.filter(function (t) { return t.source === T.src; })).filter(function (t) { return T.pkg === 'all' || t.from === T.pkg; });
   var ql = T.q.trim().toLowerCase();
-  var matched = ql ? bySrc.filter(function (t) { return (t.title + ' ' + t.sub).toLowerCase().indexOf(ql) >= 0; }) : bySrc;
-  var filtered = matched.filter(function (t) { return T.filter === 'all' || (T.filter === 'req' ? t.requested : t.booked_); });
+  var matched = ql ? bySrc.filter(function (t) { return (t.title + ' ' + t.sub + ' ' + t.from).toLowerCase().indexOf(ql) >= 0; }) : bySrc;
+  var filtered = matched.filter(function (t) { return T.filter === 'all' || (T.filter === 'req' ? t.requested : T.filter === 'can' ? t.cancelled_ : t.booked_); });
   var pages = Math.max(1, Math.ceil(filtered.length / PER));
   var pg = Math.min(T.page, pages - 1);
   var rows = filtered.slice(pg * PER, pg * PER + PER);
-  var nb = matched.filter(function (t) { return t.booked_; }).length;
+  var nb = matched.filter(function (t) { return t.booked_; }).length, nc = matched.filter(function (t) { return t.cancelled_; }).length;
   var sum = matched.filter(function (t) { return t.booked_; }).reduce(function (a, t) { return a + t.c; }, 0);
 
   h += rangeBar(T, 'trips');
   h += '<section class="card" style="overflow:hidden" aria-labelledby="trips-h"><div class="row between g12" style="padding:20px"><div class="stack g2"><h2 id="trips-h" class="h2">' + plural(matched.length, 'trip') + '</h2><p class="sub">' + (fresh ? 'No requests yet.' : nb === 0 ? 'No bookings in this view yet.' : nb + ' booked, ' + usd(sum) + ' in commission.') + '</p></div>' +
     '<div class="row" style="gap:10px"><label class="search" for="trip-q">' + svg(I.search, 16, 2) + '<span class="vh">Search trips</span><input id="trip-q" type="search" placeholder="Search trips" value="' + esc(T.q) + '" data-bind="trips.q" data-reset-page="1"></label>' +
-    '<label for="trip-src"><span class="vh">Source</span><select id="trip-src" class="select" data-bind="trips.src" data-on="change" data-reset-page="1">' +
-    [['all', 'All sources'], ['page', 'Your page'], ['code', 'Code ANNA10']].map(function (o) { return '<option value="' + o[0] + '"' + (T.src === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
-    '<div class="ftabs" role="group" aria-label="Filter by status">' + ftab('tripsFilter', 'all', T.filter, 'All ' + matched.length) + ftab('tripsFilter', 'req', T.filter, 'Requested ' + (matched.length - nb)) + ftab('tripsFilter', 'book', T.filter, 'Booked ' + nb) + '</div></div></div>';
+    '<label for="trip-src"><span class="vh">Channel</span><select id="trip-src" class="select" data-bind="trips.src" data-on="change" data-reset-page="1">' +
+    [['all', 'All channels'], ['page', 'Your page'], ['code', 'Code ANNA10'], ['app', 'Found on Holicay']].map(function (o) { return '<option value="' + o[0] + '"' + (T.src === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
+    '<label for="trip-pkg"><span class="vh">Source</span><select id="trip-pkg" class="select" style="max-width:220px" data-bind="trips.pkg" data-on="change" data-reset-page="1"><option value="all">All sources</option>' + all.map(function (t) { return t.from; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).sort().map(function (p) { return '<option' + (T.pkg === p ? ' selected' : '') + '>' + esc(p) + '</option>'; }).join('') + '</select></label>' +
+    '<div class="ftabs" role="group" aria-label="Filter by status">' + ftab('tripsFilter', 'all', T.filter, 'All ' + matched.length) + ftab('tripsFilter', 'req', T.filter, 'Requested ' + matched.filter(function (t) { return t.requested; }).length) + ftab('tripsFilter', 'book', T.filter, 'Booked ' + nb) + (nc ? ftab('tripsFilter', 'can', T.filter, 'Cancelled ' + nc) : '') + '</div></div></div>';
 
   if (rows.length) {
-    h += '<div class="tablewrap"><table class="tbl stack-sm" style="min-width:980px"><thead><tr><th scope="col">Trip</th><th scope="col">Source</th><th scope="col">Status</th><th scope="col">Booked on</th><th scope="col">Trip dates</th><th scope="col" class="r">Trip value</th><th scope="col" class="r">Commission</th><th scope="col">Payout</th></tr></thead><tbody>';
-    rows.forEach(function (t) { h += tripRow(t, true); });
+    h += '<div class="tablewrap"><table class="tbl trips stack-sm" style="min-width:1060px">' + TRIP_HEAD + '<tbody>';
+    rows.forEach(function (t) { h += tripRow(t); });
     h += '</tbody></table></div><div class="tfoot"><span class="sub">Showing ' + (pg * PER + 1) + ' to ' + (pg * PER + rows.length) + ' of ' + filtered.length + ' trips</span><div class="row g8">' +
       '<button type="button" class="btn btn-secondary btn-sm" data-act="page" data-arg="-1"' + (pg === 0 ? ' disabled style="opacity:.5"' : '') + '>Previous</button>' +
       '<button type="button" class="btn btn-secondary btn-sm" data-act="page" data-arg="1"' + (pg >= pages - 1 ? ' disabled style="opacity:.5"' : '') + '>Next</button></div></div>';
   } else if (fresh) {
     h += '<div class="empty"><span class="empty-ic">' + svg(I.plane, 24) + '</span><h3 class="h3">No trip requests yet</h3><p>When travellers plan a trip from your page or use code ANNA10, their requests show up here with their status, value and payout date.</p><button type="button" class="btn btn-primary" data-act="copyLink" data-scope="trips">' + (T.linkCopied ? 'Link copied' : 'Copy my page link') + '</button></div>';
   } else if (ql) {
-    h += '<div class="empty"><span class="empty-ic grey">' + svg(I.search, 24) + '</span><h3 class="h3">No trips match “' + esc(T.q.trim()) + '”</h3><p>Check the spelling, or search by city, country or number of travellers.</p><button type="button" class="btn btn-secondary btn-sm" style="min-height:40px" data-act="clearSearch">Clear search</button></div>';
+    h += '<div class="empty"><span class="empty-ic grey">' + svg(I.search, 24) + '</span><h3 class="h3">No trips match “' + esc(T.q.trim()) + '”</h3><p>Check the spelling, or search by city, country or the name of one of your trips.</p><button type="button" class="btn btn-secondary btn-sm" style="min-height:40px" data-act="clearSearch">Clear search</button></div>';
   } else {
-    var tt = T.filter === 'all' ? 'No trips in this date range' : T.filter === 'req' ? 'No requested trips in this date range' : 'No booked trips in this date range';
+    var tt = T.filter === 'all' ? 'No trips in this date range' : T.filter === 'req' ? 'No requested trips in this date range' : T.filter === 'can' ? 'No cancelled trips in this date range' : 'No booked trips in this date range';
     h += '<div class="empty"><span class="empty-ic grey">' + svg(I.search, 24) + '</span><h3 class="h3">' + tt + '</h3><p>Nothing was requested or booked between ' + fmt(win[0]) + ' and ' + fmt(win[1]) + '. Try a wider date range, or share your page to bring in more requests.</p><button type="button" class="btn btn-secondary btn-sm" style="min-height:40px" data-act="last30">Show last 30 days</button></div>';
   }
   return h + '</section></div>';
@@ -679,14 +778,16 @@ function viewTrip(id) {
   var t = findTrip(id);
   if (!t) return viewNotFound();
   var h = '<div class="wrap"><nav aria-label="Breadcrumb" style="font-size:14px"><ol class="row g8" style="list-style:none;margin:0;padding:0;color:var(--ink2)"><li><a href="#trips" style="color:var(--ink2);font-weight:500">All trips</a></li><li aria-hidden="true">/</li><li aria-current="page" style="color:var(--navy);font-weight:600">' + esc(t.title) + '</li></ol></nav>';
-  h += '<div class="stack g8"><div class="row g12"><h1 class="h1">' + esc(t.title) + '</h1>' + pill(t) + '</div><p class="lead">' + t.dates + (t.places ? ' · ' + esc(t.places) : '') + ' · ' + plural(t.trav, 'traveller') + ' · ' + t.sourceText + '</p></div>';
+  h += '<div class="stack g8"><div class="row g12"><h1 class="h1">' + esc(t.title) + '</h1>' + pill(t) + '</div><p class="lead">' + t.dates + (t.places ? ' · ' + esc(t.places) : '') + ' · ' + plural(t.trav, 'traveller') + '</p></div>';
+  h += '<div class="card row" style="gap:12px 16px;padding:14px 16px;box-shadow:none"><span class="ring" style="width:40px;height:40px;border-radius:8px">' + svg(t.source === 'code' ? I.tag : t.profile ? I.user : I.map) + '</span><div class="stack" style="flex:1 1 220px"><span class="small">' + 'Source' + '</span><span style="font-size:16px;line-height:24px;font-weight:600;color:var(--navy)">' + esc(t.from) + '</span></div>' + (t.source === 'code' ? '<span class="pill pill-soft" style="padding:2px 10px">20% off Holicay Pro</span>' : '<span class="pill pill-line" style="padding:2px 10px">' + t.via + '</span><a href="#" data-act="viewPage" style="font-size:14px;font-weight:600;color:var(--coral)">View on your page</a>') + '</div>';
   if (S.loading) return h + skeleton('trip') + '</div>';
+  if (t.cancelled_) return h + viewCancelled(t) + '</div>';
   var m = methodLabel() || 'your payout method';
   var payBig, paySub;
-  if (t.requested) { payBig = 'Awaiting booking'; paySub = 'Paid 1 month after the trip starts, once it’s booked'; }
+  if (t.requested) { payBig = 'Awaiting booking'; paySub = 'Paid at the end of the month after the trip starts, once it’s booked'; }
   else if (t.failed) { payBig = 'Failed'; paySub = 'Wise rejected the account details. Update your bank settings and we’ll retry.'; }
   else if (t.paid) { payBig = 'Paid ' + fmt(t.paidOn); paySub = 'To ' + m; }
-  else { payBig = fmt(t.payDate); paySub = 'To ' + m + ', 1 month after the trip starts'; }
+  else { payBig = fmt(t.payDate); paySub = 'To ' + m + ', at the end of the month after the trip starts'; }
   var tier = t.pct === 0 ? 'Trips under USD 385 don’t earn commission' : t.pct + '% rate for trips of ' + { 4: 'USD 385 to 1,999', 5: 'USD 2,000 to 3,999', 6: 'USD 4,000 to 5,999', 7: 'USD 6,000 to 7,999', 8: 'USD 8,000 and above' }[t.pct];
   h += '<section class="grid-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))" aria-label="Trip summary">' +
     '<div class="card pad stack g4"><span class="stat-label">' + (t.requested ? 'Quoted trip value' : 'Trip value') + '</span><span class="stat">' + usd(t.value) + '</span>' + (t.requested ? '<span class="small">May change before booking</span>' : '') + '</div>' +
@@ -704,7 +805,7 @@ function viewTrip(id) {
   lines.forEach(function (l) { h += '<tr><td class="strong">' + l[0] + '</td><td class="muted" data-label="Details">' + esc(l[1]) + '</td><td class="r nw num" data-label="Amount">' + usd(l[2]) + '</td></tr>'; });
   h += '<tr style="background:var(--beige)"><td class="strong">Trip value</td><td class="muted" data-label="Rate">' + (t.pct ? t.pct + '% commission' : 'No commission') + '</td><td class="r strong nw num" data-label="Amount">' + usd(t.value) + (t.c ? ' · you earn ' + usd(t.c) : '') + '</td></tr></tbody></table></div></section>';
 
-  var steps = [['Requested', fmt(t.req) + ', ' + (t.source === 'page' ? 'from your page' : 'with code ANNA10'), true]];
+  var steps = [['Requested', fmt(t.req) + ', ' + t.via, true]];
   steps.push(['Booked', t.booked ? fmt(t.booked) : 'Waiting for the traveller to book', !!t.booked]);
   steps.push(['Trip', t.dates, t.booked_ && t.start <= TODAY]);
   steps.push(['Payout', t.requested ? 'After booking' : t.failed ? 'Failed. We’ll retry once your details are fixed.' : t.paid ? usd(t.c) + ' paid on ' + fmt(t.paidOn) : (t.c ? usd(t.c) + ' on ' + fmt(t.payDate) : 'No commission on this trip'), t.paid, t.failed]);
@@ -716,38 +817,50 @@ function viewTrip(id) {
   h += '</ol></section></div>';
   return h + '</div>';
 }
+function viewCancelled(t) {
+  var h = '<div class="banner" role="status" style="border-color:var(--line);background:var(--surf);color:var(--ink2)">' + svg(I.info) + '<div class="bt"><strong style="color:var(--navy)">The traveller cancelled this trip on ' + fmt(t.cancelled) + '</strong><span>Cancelled trips don’t earn commission, so there’s no payout for this one. It still counts as a request from ' + (t.source === 'code' ? 'your code' : t.source === 'app' ? 'your trip on Holicay' : 'your page') + '.</span></div></div>';
+  h += '<section class="grid-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))" aria-label="Trip summary">' +
+    '<div class="card pad stack g4"><span class="stat-label">Trip value</span><span class="stat struck" style="font-weight:600">' + usd(t.value) + '</span><span class="small">Before it was cancelled</span></div>' +
+    '<div class="card pad stack g4"><span class="stat-label">Your commission</span><span class="stat">USD 0</span><span class="small">' + (t.cw ? 'Would have been ' + usd(t.cw) + ' at ' + t.pct + '%' : 'This trip was under USD 385') + '</span></div>' +
+    '<div class="card pad stack g4"><span class="stat-label">Payout</span><span class="stat">No payout</span><span class="small">Was due ' + fmt(payDay(t.start)) + '</span></div></section>';
+  h += '<div class="split"><section class="card main-col" style="overflow:hidden" aria-labelledby="lines-h"><div class="stack g2" style="padding:20px 20px 12px"><h2 id="lines-h" class="h3">What was booked</h2><p class="sub">All bookings on this trip were cancelled.</p></div>' +
+    '<div class="tablewrap"><table class="tbl stack-sm" style="min-width:520px"><thead><tr><th scope="col">Item</th><th scope="col">Details</th><th scope="col" class="r">Amount</th></tr></thead><tbody>';
+  (t.lines || []).forEach(function (l) { h += '<tr><td class="strong">' + l[0] + '</td><td class="muted" data-label="Details">' + esc(l[1]) + '</td><td class="r nw num struck" data-label="Amount">' + usd(l[2]) + '</td></tr>'; });
+  h += '<tr style="background:var(--beige)"><td class="strong">Trip value</td><td class="muted" data-label="Rate">Cancelled, no commission</td><td class="r strong nw num" data-label="Amount">USD 0</td></tr></tbody></table></div></section>';
+  h += '<section class="card side-col pad stack g16" aria-labelledby="time-h"><h2 id="time-h" class="h3">Timeline</h2><ol class="timeline">' +
+    '<li><div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span><span class="tl-line" aria-hidden="true"></span></div><div class="tl-body"><span class="tl-t">Requested</span><span class="tl-s">' + fmt(t.req) + ', ' + t.via + '</span></div></li>' +
+    '<li><div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span><span class="tl-line" style="background:var(--bad-line)" aria-hidden="true"></span></div><div class="tl-body"><span class="tl-t">Booked</span><span class="tl-s">' + fmt(t.booked) + '</span></div></li>' +
+    '<li><div class="tl-rail"><span class="tl-dot bad" aria-hidden="true"></span></div><div class="tl-body" style="padding-bottom:0"><span class="tl-t">Cancelled</span><span class="tl-s">' + fmt(t.cancelled) + ', by the traveller</span></div></li></ol></section></div>';
+  return h;
+}
 
 /* ---------- payouts ---------- */
 function viewPayouts() {
   var P = S.pay, all = payouts(), m = methodLabel();
-  var h = '<div class="wrap"><div class="row between g16" style="align-items:flex-end"><div class="stack g4"><h1 class="h1">Payouts</h1><p class="lead">You’re paid 1 month after each trip starts. Amounts under USD 50 roll over to your next payout.</p></div>' +
+  var h = '<div class="wrap"><div class="row between g16" style="align-items:flex-end"><div class="stack g4"><h1 class="h1">Payouts</h1><p class="lead">You’re paid on the last day of the month after each trip starts. Amounts under USD 50 roll over to the next payout.</p></div>' +
     '<div class="row g8" style="padding:8px 14px;background:var(--white);border:1px solid var(--line2);border-radius:10px;font-size:14px"><span class="muted" style="color:var(--ink2)">Paid to</span>' + (m ? '<span style="font-weight:600;color:var(--navy)">' + m + '</span><a href="#bank" style="font-weight:600;color:var(--coral)">Change</a>' : '<span style="font-weight:600;color:var(--bad)">No payout method</span><a href="#bank" style="font-weight:600;color:var(--coral)">Add one</a>') + '</div></div>';
   if (S.loading) return h + skeleton('pay') + '</div>';
-  var paid = all.filter(function (p) { return p.paid; }), pend = all.filter(function (p) { return p.upcoming || p.rollover; });
+  var paid = all.filter(function (p) { return p.paid; }), pend = all.filter(function (p) { return p.upcoming; });
   var paidSum = paid.reduce(function (a, p) { return a + p.amount; }, 0), pendSum = pend.reduce(function (a, p) { return a + p.amount; }, 0);
   var nextUp = pend.slice().sort(function (a, b) { return a.iso > b.iso ? 1 : -1; })[0];
-  var failedN = all.filter(function (p) { return p.failed; }).length;
   h += '<section class="grid-cards stats" aria-label="Payout summary">' +
     '<div class="card pad stack g4"><span class="stat-label">Paid to date</span><span class="stat">' + usd(paidSum) + '</span><span class="small">' + (paid.length ? plural(paid.length, 'payout') + ', last on ' + fmtShort(paid[0].iso) : 'Nothing paid out yet') + '</span></div>' +
-    '<div class="card pad stack g4"><span class="stat-label">Pending payments</span><span class="stat">' + usd(pendSum) + '</span><span class="small">' + (pend.length ? plural(pend.filter(function (p) { return !p.rollover; }).length, 'payment') + ', next on ' + fmtShort(nextUp.rollover ? '2026-12-01' : nextUp.iso) : 'No booked trips waiting to pay out') + '</span></div></section>';
-  var rows = all.filter(function (p) { return P.filter === 'all' || (P.filter === 'paid' ? p.paid : P.filter === 'failed' ? p.failed : (p.upcoming || p.rollover)); });
+    '<div class="card pad stack g4"><span class="stat-label">Pending payments</span><span class="stat">' + usd(pendSum) + '</span><span class="small">' + (pend.length ? plural(pend.length, 'payment') + ', next on ' + fmtShort(nextUp.iso) : 'No booked trips waiting to pay out') + '</span></div></section>';
+  var rows = all.filter(function (p) { return P.filter === 'all' || (P.filter === 'paid' ? p.paid : p.upcoming); });
   h += '<section class="card" style="overflow:hidden" aria-labelledby="pay-h"><div class="row between g12" style="padding:20px"><h2 id="pay-h" class="h2">All payouts</h2>';
-  if (all.length) h += '<div class="ftabs" role="group" aria-label="Filter payouts">' + ftab('payFilter', 'all', P.filter, 'All ' + all.length) + ftab('payFilter', 'up', P.filter, 'Upcoming ' + pend.length) + ftab('payFilter', 'paid', P.filter, 'Paid ' + paid.length) + (failedN ? ftab('payFilter', 'failed', P.filter, 'Failed ' + failedN) : '') + '</div>';
+  if (all.length) h += '<div class="ftabs" role="group" aria-label="Filter payouts">' + ftab('payFilter', 'all', P.filter, 'All ' + all.length) + ftab('payFilter', 'up', P.filter, 'Pending ' + pend.length) + ftab('payFilter', 'paid', P.filter, 'Paid ' + paid.length) + '</div>';
   h += '</div>';
   if (all.length) {
     h += '<div class="tablewrap"><table class="tbl stack-sm" style="min-width:760px"><thead><tr><th scope="col">Payout date</th><th scope="col">Trip</th><th scope="col">Paid to</th><th scope="col">Status</th><th scope="col" class="r">Amount</th></tr></thead><tbody>';
     rows.forEach(function (p) {
-      var st = p.paid ? '<div class="stack g4" style="align-items:flex-start"><span class="pill pill-booked">Paid</span><span class="small">' + p.note + '</span></div>'
-        : p.failed ? '<div class="stack g4" style="align-items:flex-start"><span class="pill pill-bad">Failed</span><span class="small" style="color:var(--bad)">' + p.note + '</span></div>'
-        : p.rollover ? '<div class="stack g4" style="align-items:flex-start"><span class="pill pill-roll">Rolls over</span><span class="small">' + p.note + '</span></div>'
-        : '<span class="muted">' + p.note + '</span>';
-      var tripCell = p.tripId ? '<a class="tlink" href="#trip-' + p.tripId + '" style="font-weight:500;color:var(--ink)">' + esc(p.trip) + '</a>' : '<span style="font-weight:500">' + esc(p.trip) + '</span>';
-      h += '<tr' + (p.tripId ? ' class="clickable" data-go="trip-' + p.tripId + '"' : '') + '><td class="strong nw">' + p.date + '</td><td data-label="Trip">' + tripCell + '</td><td class="muted nw" data-label="Paid to">' + (p.paid || p.failed ? 'Wise · USD' : (m || 'Not set')) + '</td><td data-label="Status">' + st + '</td><td class="r strong nw num" data-label="Amount">' + usd(p.amount) + '</td></tr>';
+      var st = p.paid ? '<span class="pill pill-booked">Paid</span>' : '<span class="pill pill-req">Pending</span>';
+      var tripCell = p.tripId ? '<a class="tlink nw" href="#trip-' + p.tripId + '" style="font-weight:500;color:var(--ink)">' + esc(p.trip) + '</a>' : '<span style="font-weight:500">' + esc(p.trip) + '</span>';
+      h += '<tr' + (p.tripId ? ' class="clickable" data-go="trip-' + p.tripId + '"' : '') + '><td class="strong nw">' + p.date + '</td><td data-label="Trip">' + tripCell + '</td><td class="muted nw" data-label="Paid to">' + (p.paid ? 'Wise · USD' : (m || 'Not set')) + '</td><td data-label="Status">' + st + '</td><td class="r strong nw num" data-label="Amount">' + usd(p.amount) + '</td></tr>';
     });
     if (!rows.length) h += '<tr><td colspan="5" class="empty-cell" style="padding:40px 20px;text-align:center;color:var(--ink2)">No payouts with this status.</td></tr>';
     h += '</tbody></table></div>';
   } else {
-    h += '<div class="empty"><span class="empty-ic">' + svg(I.card, 24) + '</span><h3 class="h3">No payouts yet</h3><p>Once a trip you referred is booked, its payout shows here. You’re paid 1 month after the trip starts.</p><a class="btn btn-secondary btn-sm" style="min-height:40px" href="#trips">See your trips</a></div>';
+    h += '<div class="empty"><span class="empty-ic">' + svg(I.card, 24) + '</span><h3 class="h3">No payouts yet</h3><p>Once a trip you referred is booked, its payout shows here. You’re paid on the last day of the month after the trip starts.</p><a class="btn btn-secondary btn-sm" style="min-height:40px" href="#trips">See your trips</a></div>';
   }
   return h + '</section></div>';
 }
@@ -811,11 +924,11 @@ var COUNTRIES = ['Singapore', 'Malaysia', 'United States', 'United Kingdom', 'Ge
 function viewBank() {
   var B = S.bank, m = B.method, cur = B.cur, pend = B.pend, v = B.v;
   var names = { wise: 'Wise', bank: 'bank transfer', paypal: 'PayPal' }, Names = { wise: 'Wise', bank: 'Bank transfer', paypal: 'PayPal' };
-  var pendingTotal = payouts().filter(function (p) { return p.upcoming || p.rollover; }).reduce(function (a, p) { return a + p.amount; }, 0);
-  var h = '<div class="wrap narrow"><div class="stack g4"><h1 class="h1">Bank settings</h1><p class="lead">' + (cur ? 'Choose how you get paid. Changes apply from your next payout on 1 Dec.' : 'Add how you’d like to be paid. You’ll need this before your first payout on 1 Dec.') + '</p></div>';
+  var pendingTotal = payouts().filter(function (p) { return p.upcoming; }).reduce(function (a, p) { return a + p.amount; }, 0);
+  var h = '<div class="wrap narrow"><div class="stack g4"><h1 class="h1">Bank settings</h1><p class="lead">' + (cur ? 'Choose how you get paid. Changes apply from your next payout on 30 Nov.' : 'Add how you’d like to be paid. You’ll need this before your first payout on 30 Nov.') + '</p></div>';
   if (S.loading) return h + skeleton('form') + '</div>';
   if (B.ok) {
-    var savedText = pend ? 'We’re checking your new ' + names[pend] + ' details, which takes up to 2 working days. Until then, payouts keep going to ' + Names[cur] + '.' : 'Your next payout on 1 Dec goes to ' + Names[cur] + '.';
+    var savedText = pend ? 'We’re checking your new ' + names[pend] + ' details, which takes up to 2 working days. Until then, payouts keep going to ' + Names[cur] + '.' : 'Your next payout on 30 Nov goes to ' + Names[cur] + '.';
     h += '<div class="banner ok" role="status">' + svg(I.okc) + '<div class="bt"><strong>Payout details saved</strong><span class="bs">' + savedText + '</span></div><button type="button" class="x" data-act="bankDismiss" aria-label="Dismiss message">' + svg(I.x, 16, 2) + '</button></div>';
   }
   function opt(key, title, desc) {
@@ -824,7 +937,7 @@ function viewBank() {
   }
   h += '<section class="card pad24 stack g16" aria-labelledby="method-h"><h2 id="method-h" class="h3">' + (cur ? 'Payout method' : 'Choose a payout method') + '</h2><div class="grid-cards" role="radiogroup" aria-labelledby="method-h" style="gap:12px">' +
     opt('wise', 'Wise', 'Lowest fees. Arrives in 1 working day.') + opt('bank', 'Bank transfer', 'Straight to your bank. Arrives in 3 to 5 working days.') + opt('paypal', 'PayPal', 'To your PayPal email. PayPal fees may apply.') + '</div>';
-  if (!m) h += '<div class="banner note">' + svg(I.info) + '<span>You haven’t added a payout method yet. ' + (pendingTotal ? 'You have ' + usd(pendingTotal) + ' waiting, with your first payout due on 1 Dec. ' : '') + 'Choose a method above to add your details.</span></div>';
+  if (!m) h += '<div class="banner note">' + svg(I.info) + '<span>You haven’t added a payout method yet. ' + (pendingTotal ? 'You have ' + usd(pendingTotal) + ' waiting, with your first payout due on 30 Nov. ' : '') + 'Choose a method above to add your details.</span></div>';
   h += '</section>';
   if (m) {
     var n = Object.keys(B.errors).filter(function (k) { return B.errors[k]; }).length;
@@ -864,17 +977,17 @@ function viewBank() {
 /* ---------- personal settings ---------- */
 function viewProfile() {
   var M = S.me, e = M.errors;
-  var h = '<div class="wrap narrow"><div class="stack g4"><h1 class="h1">Personal settings</h1><p class="lead">Your account details, creator page and notifications.</p></div>';
+  var h = '<div class="wrap narrow"><div class="stack g4"><h1 class="h1">Personal settings</h1><p class="lead">Your account details and creator page.</p></div>';
   if (S.loading) return h + skeleton('form') + '</div>';
   if (M.saved) h += '<div class="banner ok" role="status">' + svg(I.okc) + '<div class="bt"><strong>Password updated</strong><span class="bs">Use your new password next time you log in. We’ve logged you out on your other devices.</span></div><button type="button" class="x" data-act="meDismiss" aria-label="Dismiss message">' + svg(I.x, 16, 2) + '</button></div>';
   h += '<section class="card pad24 stack g20" aria-labelledby="profile-h"><h2 id="profile-h" class="h3">Profile</h2><div class="row g16">' + avatar(true) +
     '<div class="stack g8" style="align-items:flex-start"><div class="row g8"><label class="btn btn-secondary btn-sm" for="photo" style="cursor:pointer">Upload photo</label><input id="photo" type="file" accept="image/png,image/jpeg" class="vh" data-act="photo">' + (M.photo ? '<button type="button" class="linkbtn" style="color:var(--ink2)" data-act="removePhoto">Remove</button>' : '') + '</div><span class="small">JPG or PNG, up to 5 MB. Shown on your creator page.</span>' + (M.photoErr ? fieldErr(M.photoErr) : '') + '</div></div>' +
     '<div class="fld"><label for="p-name">Full name</label><input id="p-name" type="text" value="Anna Wong" disabled></div>' +
-    '<div class="grid-fields"><div class="fld"><label for="p-email">Email</label><input id="p-email" type="email" value="anna.wong@example.com" disabled></div><div class="fld"><label for="p-phone">Phone number</label><input id="p-phone" type="tel" value="+65 9123 4567" disabled></div></div>' +
+    '<div class="grid-fields"><div class="fld"><label for="p-email">Email</label><input id="p-email" type="email" value="anna.wong@example.com" disabled aria-describedby="p-email-h"><span id="p-email-h" class="row g4" style="flex-wrap:nowrap;align-items:flex-start;font-weight:400;color:var(--ink2)"><span style="display:flex;margin-top:3px">' + svg(I.link, 14, 2) + '</span><span>Linked to your Holicay account. You log in to Holicay with this email.</span></span></div><div class="fld"><label for="p-phone">Phone number</label><input id="p-phone" type="tel" value="+65 9123 4567" disabled></div></div>' +
     '<p class="sub">To change your name, email or phone, <a href="#" data-act="help" style="font-weight:600">contact the Holicay team</a>.</p></section>';
   h += '<section class="card pad24 stack g16" aria-labelledby="page-h"><h2 id="page-h" class="h3">Your creator page</h2><div class="grid-fields">' +
-    '<div class="fld"><span>Page link</span><div class="row g8" style="flex-wrap:nowrap"><div class="codebox" style="font-size:16px">holicay.com/creator/anna</div><button type="button" class="btn btn-secondary btn-sm" style="min-height:44px;min-width:84px" data-act="copyLink" data-scope="me">' + (M.linkCopied ? 'Copied' : 'Copy') + '</button></div></div>' +
-    '<div class="fld"><span>Promo code</span><div class="row g8" style="flex-wrap:nowrap"><div class="codebox" style="letter-spacing:.04em;font-weight:600;color:var(--navy)">ANNA10</div><span class="pill pill-soft">10% off</span></div></div></div></section>';
+    '<div class="fld"><span class="row g8">Page link' + '<span class="lockpill">' + svg(I.lock, 12, 2) + 'Locked</span>' + '</span><div class="row g8" style="flex-wrap:nowrap"><div class="codebox" style="font-size:16px">holicay.com/creator/anna</div><button type="button" class="btn btn-secondary btn-sm" style="min-height:44px;min-width:84px" data-act="copyLink" data-scope="me">' + (M.linkCopied ? 'Copied' : 'Copy') + '</button></div></div>' +
+    '<div class="fld"><span class="row g8">Promo code' + '<span class="lockpill">' + svg(I.lock, 12, 2) + 'Locked</span>' + '</span><div class="row g8" style="flex-wrap:nowrap"><div class="codebox" style="letter-spacing:.04em;font-weight:600;color:var(--navy)">ANNA10</div><span class="pill pill-soft">20% off</span></div></div></div><p class="small" style="font-size:14px;line-height:20px">Your page link and promo code are set by Holicay and can’t be changed. Followers get 20% off Holicay Pro with your code.</p></section>';
   h += '<section class="card pad24 stack g16" aria-labelledby="pw-h"><h2 id="pw-h" class="h3">Password</h2>';
   if (!M.editing) {
     h += '<div class="row g12" style="align-items:flex-end"><div class="fld" style="flex:1 1 240px"><label for="p-pw">Password</label><input id="p-pw" type="password" value="password123" disabled></div><button type="button" class="btn btn-secondary" data-act="meEdit">Change password</button></div><p class="small">' + (M.saved ? 'Last changed today.' : 'Last changed 12 Aug 2026.') + '</p>';
@@ -885,14 +998,11 @@ function viewProfile() {
       '<p class="small">Prototype: the current password is <strong>holicay2026</strong>.</p></div>';
   }
   h += '</section>';
-  function chk(key, t, s) { return '<label class="chk"><input type="checkbox"' + (M.n[key] ? ' checked' : '') + ' data-act="notif" data-arg="' + key + '"><span class="stack g2"><span style="font-weight:600">' + t + '</span><span class="sub">' + s + '</span></span></label>'; }
-  h += '<section class="card pad24 stack" style="gap:4px" aria-labelledby="notif-h"><div class="row between g12" style="margin-bottom:8px"><h2 id="notif-h" class="h3">Email notifications</h2><span role="status" class="row g4" style="font-size:14px;font-weight:600;color:var(--ok)">' + (M.nSaved ? svg(I.check, 16, 2.25) + 'Saved' : '') + '</span></div>' +
-    chk('booked', 'A trip is booked', 'When a traveller you referred books, with the commission you’ll earn.') + chk('paid', 'Payouts', 'When a payout is sent, or if one can’t be sent.') + chk('news', 'Tips and updates', 'New features and ideas for growing your bookings. About once a month.') + '</section>';
   h += '<section class="card pad24 stack g16" aria-labelledby="acct-h"><h2 id="acct-h" class="h3">Account</h2>' +
     '<div class="row between g12"><div class="stack g2"><span style="font-weight:600">Log out</span><span class="sub">Log out of Holicay on this device.</span></div><button type="button" class="btn btn-secondary" data-act="logout">Log out</button></div>' +
     '<div class="row between g12 divider"><div class="stack g2"><span style="font-weight:600">Delete account</span><span class="sub">Permanently close your creator account and remove your page.</span></div><button type="button" class="btn btn-secondary" style="color:var(--bad);border-color:var(--bad-soft)" data-act="openDelete">Delete account</button></div></section></div>';
   if (M.del) {
-    var pendingTotal = payouts().filter(function (p) { return p.upcoming || p.rollover; }).reduce(function (a, p) { return a + p.amount; }, 0);
+    var pendingTotal = payouts().filter(function (p) { return p.upcoming; }).reduce(function (a, p) { return a + p.amount; }, 0);
     h += '<div class="overlay" data-act="closeDelete" data-self="1"><div class="dialog sm" role="alertdialog" aria-modal="true" aria-labelledby="del-h" aria-describedby="del-d"><span class="ring bad">' + svg(I.trash, 24) + '</span><div class="stack g4"><h2 id="del-h" class="h2">Delete your creator account?</h2><p id="del-d" class="sub">You’ll lose access to your dashboard and trip history straight away, and your page and promo code will stop working.' + (pendingTotal ? ' Payouts already pending (' + usd(pendingTotal) + ') will still be paid to your payout method.' : '') + '</p></div>' +
       '<label class="row g8" style="flex-wrap:nowrap;align-items:flex-start;cursor:pointer"><input type="checkbox"' + (M.delOk ? ' checked' : '') + ' data-act="toggleDel" style="width:18px;height:18px;margin:1px 0 0;accent-color:var(--bad-line);flex:none">I understand this can’t be undone.</label>' +
       '<div class="row g12" style="justify-content:flex-end"><button type="button" class="btn btn-secondary" data-act="closeDelete">Keep my account</button>' + (M.delOk ? '<button type="button" class="btn btn-danger" data-act="doDelete">Delete account</button>' : '<button type="button" class="btn is-off" disabled>Delete account</button>') + '</div></div></div>';
@@ -919,8 +1029,7 @@ function protoPanel() {
     function radio(group, val, label) { return '<label class="proto-opt"><input type="radio" name="p-' + group + '"' + (d[group] === val ? ' checked' : '') + ' data-act="demo" data-group="' + group + '" data-arg="' + val + '">' + label + '</label>'; }
     h += '<div class="proto-panel" role="dialog" aria-label="Prototype controls"><div class="row between"><h2 class="proto-h">Prototype controls</h2><button type="button" class="x" data-act="protoToggle" aria-label="Close prototype controls">' + svg(I.x, 16, 2) + '</button></div>' +
       '<div class="proto-sec"><span class="proto-label">Creator</span>' + radio('data', 'full', 'Anna, with 14 trips') + radio('data', 'new', 'New creator, nothing yet') + '</div>' +
-      '<div class="proto-sec"><span class="proto-label">Payouts</span>' + radio('payout', 'normal', 'All payouts fine') + radio('payout', 'failed', 'A payout failed') + radio('payout', 'rollover', 'A small amount rolls over') + '</div>' +
-      '<div class="proto-sec"><span class="proto-label">Loading</span><label class="proto-opt"><input type="checkbox"' + (d.slow ? ' checked' : '') + ' data-act="demoSlow">Slow connection (3 second loads)</label></div>' +
+            '<div class="proto-sec"><span class="proto-label">Loading</span><label class="proto-opt"><input type="checkbox"' + (d.slow ? ' checked' : '') + ' data-act="demoSlow">Slow connection (3 second loads)</label></div>' +
       '<div class="proto-sec"><span class="proto-label">Jump to</span><button type="button" class="proto-act" data-act="demoTimeout">Logged out after inactivity</button><button type="button" class="proto-act" data-act="demoError">Error page</button><button type="button" class="proto-act" data-act="demoNoMethod">No payout method yet</button><button type="button" class="proto-act" data-act="demoReset">Start over</button></div></div>';
   }
   h += '<button type="button" class="proto-btn" data-act="protoToggle" aria-expanded="' + d.open + '"><span class="proto-dot" aria-hidden="true"></span>Prototype</button></div>';
@@ -961,7 +1070,7 @@ function onRoute() {
   var changed = S.route !== r;
   S.route = r; S.menu = false;
   if (changed) {
-    S.dash.share = false; S.dash.tip = false; S.me.del = false; S.bank.verifyOpen = false;
+    S.dash.share = false; S.dash.tip = false; S.dash.payTip = false; S.dash.calOpen = false; S.trips.calOpen = false; S.me.del = false; S.bank.verifyOpen = false;
     if (r !== 'login' && r !== 'error') {
       S.loading = true;
       later('load', S.demo.slow ? 3000 : 550, function () { S.loading = false; });
@@ -996,18 +1105,24 @@ var ACT = {
   openReset: function () { var L = S.login; L.screen = 'reset'; L.newpw = ''; L.confirm = ''; L.errors = {}; },
   openExpired: function () { S.login.screen = 'expired'; },
   fillDemo: function () { var L = S.login; L.email = 'anna.wong@example.com'; L.password = 'holicay2026'; L.errors = {}; },
-  range: function (arg, el) { var o = S[el.dataset.scope]; o.range = arg; o.rangeErr = ''; o.page = 0; },
+  range: function (arg, el) { var o = S[el.dataset.scope]; o.range = arg; o.rangeErr = ''; o.page = 0; if (arg === 'c') openCal(o); else o.calOpen = false; },
+  toggleCal: function (arg, el) { var o = S[el.dataset.scope]; if (o.calOpen) o.calOpen = false; else openCal(o); },
+  calNav: function (arg, el) { var o = S[el.dataset.scope]; var v = shiftM(o.cal.view, +arg); if (shiftM(v, 1) <= TODAY.slice(0, 7)) o.cal.view = v; },
+  calDay: function (arg, el) { var c = S[el.dataset.scope].cal; if (!c.s || c.e) { c.s = arg; c.e = null; } else if (arg < c.s) { c.e = c.s; c.s = arg; } else c.e = arg; },
+  calCancel: function (arg, el) { S[el.dataset.scope].calOpen = false; },
+  calApply: function (arg, el) { var o = S[el.dataset.scope]; if (!o.cal.e) return; o.af = o.from = o.cal.s; o.at = o.to = o.cal.e; o.calOpen = false; o.page = 0; },
   applyRange: function (arg, el) {
     var o = S[el.dataset.scope], err = checkRange(o.from, o.to);
     o.rangeErr = err; if (!err) { o.af = o.from; o.at = o.to; o.page = 0; }
   },
-  tip: function () { S.dash.tip = !S.dash.tip; },
+  tip: function () { S.dash.tip = !S.dash.tip; S.dash.payTip = false; },
+  payTip: function () { S.dash.payTip = !S.dash.payTip; S.dash.tip = false; },
   dashFilter: function (arg) { S.dash.filter = arg; },
   tripsFilter: function (arg) { S.trips.filter = arg; S.trips.page = 0; },
   payFilter: function (arg) { S.pay.filter = arg; },
   page: function (arg) { S.trips.page = Math.max(0, S.trips.page + (+arg)); window.scrollTo(0, 0); },
   clearSearch: function () { S.trips.q = ''; S.trips.page = 0; },
-  last30: function () { var T = S.trips; T.range = '30'; T.filter = 'all'; T.src = 'all'; T.rangeErr = ''; T.page = 0; },
+  last30: function () { var T = S.trips; T.range = '30'; T.filter = 'all'; T.src = 'all'; T.pkg = 'all'; T.rangeErr = ''; T.page = 0; },
   copyCode: function () { copyText('ANNA10'); flash(S.dash, 'copied'); },
   copyLink: function (arg, el) { copyText('https://holicay.com/creator/anna'); flash(S[el.dataset.scope], 'linkCopied'); },
   openShare: function () { S.dash.share = true; },
@@ -1157,7 +1272,8 @@ document.addEventListener('keydown', function (ev) {
   if (S.dash.share) S.dash.share = false;
   else if (S.me.del) S.me.del = false;
   else if (S.bank.verifyOpen && !S.bank.verifying) S.bank.verifyOpen = false;
-  else if (S.dash.tip) S.dash.tip = false;
+  else if (S.dash.calOpen || S.trips.calOpen) { S.dash.calOpen = false; S.trips.calOpen = false; }
+  else if (S.dash.tip || S.dash.payTip) { S.dash.tip = false; S.dash.payTip = false; }
   else if (S.demo.open) S.demo.open = false;
   else return;
   render();
